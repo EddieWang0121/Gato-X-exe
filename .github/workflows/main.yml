@@ -26,7 +26,7 @@ jobs:
       - name: Build executable
         run: |
           # Create a simple entry point script
-          echo 'import sys; from gatox.main import entry; sys.exit(main())' > gato-x_launcher.py
+          echo 'import sys; from gatox.main import entry; sys.exit(entry())' > gato-x_launcher.py
           # Use this entry script for PyInstaller
           pyinstaller --onefile --name gato-x_windows_amd64.exe gato-x_launcher.py
           
