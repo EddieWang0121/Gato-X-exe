@@ -16,7 +16,7 @@ jobs:
       - name: Install gato-x and dependencies
         run: |
           pip install pyinstaller colorama requests pyyaml cryptography networkx
-          
+          pip install .
       - name: Build executable
         run: |
           pyinstaller ./gatox/main.py --onefile --clean -n gato-x
