@@ -13,29 +13,20 @@ jobs:
         with:
           python-version: '3.10'
           
-      - name: Install adidnsdump and dependencies
+      - name: Install gato-x and dependencies
         run: |
           python -m pip install --upgrade pip
           # Install explicit dependencies
-          pip install colorama requests pyyaml cryptography networkx
+          pip install pyinstaller colorama requests pyyaml cryptography networkx
           # Install gato-x and its dependencies
           pipx install -e .
-          # Install PyInstaller
-          pip install pyinstaller
           
       - name: Build executable
         run: |
-          # Create a simple entry point script
-          echo 'import sys; from gatox.main import entry; sys.exit(entry())' > gato-x_launcher.py
-          # Use this entry script for PyInstaller
-          pyinstaller --onefile --name gato-x_windows_amd64.exe gato-x_launcher.py
-          
-      - name: Create zip file
-        run: |
-          Compress-Archive -Path .\\dist\\gato-x_windows_amd64.exe -DestinationPath gato-x_windows.zip
+          pyinstaller ./gatox/main.py --onefile --clean -n gato-x
           
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
           name: gato-x-windows
-          path: gato-x_windows.zip 
+          path: dist/gato-x.exe
